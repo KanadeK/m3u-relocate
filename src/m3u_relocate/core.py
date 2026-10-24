@@ -206,6 +206,7 @@ def plan_playlist(
             if any(not char.isprintable() for char in relative):
                 raise ValueError("output path contains a control character")
             entry.output, entry.resolved, entry.mapped_root = relative, str(candidate), root
-        except (OSError, ValueError, UnicodeError) as exc:
+        except (OSError, ValueError, RuntimeError) as exc:
+            # Path.resolve reports symlink loops as RuntimeError on older Python versions.
             entry.error = f"{type(exc).__name__}: {exc}"
     return Plan(lines, entries)

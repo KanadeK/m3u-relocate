@@ -101,6 +101,6 @@ def main(argv: list[str] | None = None) -> int:
             for entry in (e for e in plan.entries if e.error):
                 print(f"line {entry.line}: {ascii(entry.error)}")
         return int(bool(plan.errors))
-    except (OSError, ValueError, UnicodeError, LookupError) as exc:
+    except (OSError, ValueError, RuntimeError, LookupError) as exc:
         print(f"m3u-relocate: {ascii(str(exc))}", file=sys.stderr)
         return 2

@@ -180,3 +180,13 @@ class PlanningTests(unittest.TestCase):
         (self.root / "track:part.flac").write_bytes(b"marker")
         plan = self.plan("./track:part.flac")
         self.assertEqual(plan.render(), "./track:part.flac")
+
+    def test_symlink_loop_is_a_reported_entry_error(self):
+        try:
+            (self.library / "loop-a").symlink_to("loop-b")
+            (self.library / "loop-b").symlink_to("loop-a")
+        except OSError as exc:
+            self.skipTest(f"symlink privilege unavailable: {exc}")
+        plan = self.plan("Music/loop-a")
+        self.assertEqual(plan.errors, 1)
+        self.assertIsNotNone(plan.entries[0].error)
