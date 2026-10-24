@@ -1,0 +1,9 @@
+name: Feature request
+description: Describe a concrete workflow the current version cannot complete
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow, current workaround and desired result
+    validations:
+      required: true

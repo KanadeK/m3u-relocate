@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "m3u-relocate"
+version = "0.1.0"
+description = "Preview and verify local M3U playlist root migrations before writing a new playlist."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "KanadeK"}]
+dependencies = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.urls]
+Homepage = "https://github.com/KanadeK/m3u-relocate"
+Issues = "https://github.com/KanadeK/m3u-relocate/issues"
+
+[project.scripts]
+m3u-relocate = "m3u_relocate.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "S603"]
+"examples/demo.py" = ["S603"] # Fixed sys.executable module invocation with an argument list; no shell.
+
+[tool.coverage.run]
+source = ["m3u_relocate"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85

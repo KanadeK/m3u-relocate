@@ -1,0 +1,3 @@
+include README.zh-CN.md CONTRIBUTING.md SECURITY.md requirements-dev.txt
+recursive-include docs *.md
+recursive-include examples *.csv *.py
